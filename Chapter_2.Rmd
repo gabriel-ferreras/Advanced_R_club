@@ -14,14 +14,11 @@ knitr::opts_chunk$set(echo = TRUE)
 
 
 ```{r cars}
-summary(cars)
+x <- runif(1e6)
+y <- list(x, x, x)
 ```
 
-## Including Plots
+```{r cars}
+library(bench)
 
-You can also embed plots, for example:
-
-```{r pressure, echo=FALSE}
-plot(pressure)
 ```
-
