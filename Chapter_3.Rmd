@@ -1,6 +1,8 @@
 ---
 title: "Chapter_3_GFG"
-output: html_document
+output: 
+  html_document: 
+    keep_md: yes
 date: "2022-10-30"
 ---
 
