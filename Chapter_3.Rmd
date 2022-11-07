@@ -167,7 +167,11 @@ attributes(f3)
 2.  
 
 ```{r}
-#View(as.vector)
+list<-list("A"=c(1,2,3), "B"=c(3,4,5))
+is.list(as.vector(list))
+is.vector(as.vector(list))
+is.list(unlist(list))
+is.vector(unlist(list))
 ```
 
 3.  
@@ -189,7 +193,7 @@ str(v2)
 attributes(v2)
 ```
 
-c() coerces the date-time into date, unlist just converts everything into numeric.
+c() coerces the date-time into date, unlist just converts everything into numeric. c() coerces everything to the first element.
 
 # Data frames and tibbles
 
