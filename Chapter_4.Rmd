@@ -1,0 +1,176 @@
+---
+title: "Chapter_4_GFG"
+output: 
+  html_document: 
+    keep_md: yes
+date: "2022-10-30"
+---
+
+## 4.1. QUIZ
+
+1. 
+
+- With positive integers: select the element in the positions indicated by the integer.
+- With negative integers: select all elements but the ones in the positions indicated by the integer.
+- With logical vector: select element in the TRUE positions (if smaller than vector the logical vector is repeated until covering the entire vector).
+- With character vector: select element based on their name.
+
+2.
+
+- [] returns a list.
+- [[]] returns a vector.
+- $ returns a vector.
+
+3.
+
+When you do not want to lose dimensions when subsetting a matrix or data frame. This is automatic in tibbles.
+
+4.
+
+x[]<-0 makes all elements in the matrix become 0.
+x<-0 turns the matrix into a 0.
+
+5.
+
+```{r}
+c(x = 1, y = 2, z = 3)[c("y", "z", "x")]
+```
+
+## EXERCISES
+
+# 4.2. Selecting multiple elements
+
+1.
+
+```{r}
+mtcars[mtcars$cyl == 4, ]
+```
+
+```{r}
+mtcars[-c(1:4), ]
+```
+
+```{r}
+mtcars[mtcars$cyl <= 5, ]
+```
+
+```{r}
+mtcars[mtcars$cyl == 4 | mtcars$cyl == 6, ]
+```
+
+2.
+
+```{r}
+x <- 1:5
+x[NA]
+x[NA_real_]
+```
+
+It yields five missing values because NA is a logical by default.
+
+3.
+
+```{r}
+x <- outer(1:5, 1:5, FUN = "*")
+upper.tri(x)
+x[upper.tri(x)]
+```
+
+4.
+
+```{r}
+mtcars[1:20,]
+```
+It returns an error because there is only 11 columns, so you cannot select 20. When using the comma you are actually selecting the first 20 rows and all columns.
+
+5.
+
+```{r}
+x
+diag(x)
+```
+```{r}
+my_diag<-function(matrix)
+{
+  result<-c()
+  for(i in 1:nrow(matrix))
+  {
+    for(j in 1:ncol(matrix))
+    {
+      if(i == j)
+      {
+        result<-c(result,matrix[i,j])
+      }
+    }
+  }
+  return(result)
+}
+my_diag(x)
+```
+
+6.
+
+```{r}
+df<-data.frame(a = 1:2, b = c(NA,NA))
+df
+df[is.na(df)] <- 0
+df
+```
+
+It converts NAs into 0s, by first getting the positions of the NAs and then subsetting the data frame with this positions to convert to 0s.
+
+# 4.3. Selecting a single element
+
+1.
+
+```{r}
+mtcars[[3,2]]
+mtcars[3,2]
+mtcars[[3,"cyl"]]
+mtcars[3,"cyl"]
+mtcars$cyl[3]
+mtcars$cyl[[3]]
+mtcars[["cyl"]][3]
+mtcars[["cyl"]][[3]]
+```
+
+2.
+
+```{r}
+mod <- lm(mpg ~ wt, data = mtcars)
+str(mod)
+mod$df.residual
+summary<-summary(mod)
+str(summary)
+summary$r.squared
+```
+
+# 4.5. Applications
+
+1.
+
+```{r}
+df <- data.frame(x = 1:5, y = 5:1, z = letters[1:5])
+df[sample(nrow(df)),]
+df[,sample(ncol(df))]
+df[sample(nrow(df)),sample(ncol(df))]
+```
+
+2.
+
+```{r}
+df <- data.frame(x = 1:20, y = 20:1, z = letters[1:20])
+m=5
+df[sample(nrow(df),m),]
+s<-sample((nrow(df)-m+1),1)
+df[s:(s+m-1),drop=F]
+```
+
+3.
+
+```{r}
+df <- data.frame(y = 1:20, a = 20:1, y = letters[1:20])
+df[,order(colnames(df))]
+df[,sort(colnames(df))]
+```
+
